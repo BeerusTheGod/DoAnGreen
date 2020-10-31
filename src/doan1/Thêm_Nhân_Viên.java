@@ -90,8 +90,9 @@ public class Thêm_Nhân_Viên extends javax.swing.JFrame {
         });
         getContentPane().add(jTextField_PhoneNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 308, 212, -1));
 
+        jLabel_Tittle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel_Tittle.setText("BỔ SUNG NHÂN VIÊN");
-        getContentPane().add(jLabel_Tittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(219, 0, 150, 65));
+        getContentPane().add(jLabel_Tittle, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, 180, 65));
 
         jButton_ADD.setText("Add");
         jButton_ADD.addActionListener(new java.awt.event.ActionListener() {
@@ -119,7 +120,6 @@ public class Thêm_Nhân_Viên extends javax.swing.JFrame {
     private void jButton_ADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ADDActionPerformed
         // TODO add your handling code here:
         String insert_sql = "INSERT INTO theater.staff VALUES (?, ?, ?, ?, ?);";
-        String select_all = "SELECT * FROM theater.staff;";
         Connection conn = null;
         PreparedStatement statement = null;
         try {
@@ -133,24 +133,31 @@ public class Thêm_Nhân_Viên extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Thêm_Nhân_Viên.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         String add_MaNV = jTextField_MãVN.getText();
         String add_Name = jTextField_HOTEN.getText();
         String add_Age = jTextField_AGE.getText();
         String add_PhoneNum = jTextField_PhoneNum.getText();
         String add_Address = jTextField_Address.getText();
-                   
-        try {
+
+        try {           
             statement.setInt(1, Integer.parseInt(add_MaNV));
             statement.setString(2, add_Name);
             statement.setInt(3, Integer.parseInt(add_Age));
             statement.setString(4, add_PhoneNum);
-            statement.setString(5, add_Address);                      
+            statement.setString(5, add_Address);
             statement.execute();
+            JOptionPane.showMessageDialog(rootPane, "SUCCESS");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane,"Trùng mã Nhân Viên. Vui lòng nhập lại!");
+            JOptionPane.showMessageDialog(rootPane, "FAILED. PLEASE TRY AGAIN");
             jTextField_MãVN.setText("");
+            jTextField_HOTEN.setText("");
+            jTextField_AGE.setText("");
+            jTextField_Address.setText("");
+            jTextField_PhoneNum.setText("");
         }
+
+
     }//GEN-LAST:event_jButton_ADDActionPerformed
 
     private void jTextField_HOTENActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_HOTENActionPerformed
